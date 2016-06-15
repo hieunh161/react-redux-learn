@@ -1,26 +1,22 @@
 import React,{ Component }  from 'react'
-import * as types from '../constants/ActionTypes'
-import FilterLink from './FilterLink'
+import FilterLink from '../containers/FilterLink'
 
-const Footer = ({visibilityFilter, onFilterClick}) => {
+const Footer = ({store}) => {
   return (
     <p>
       Show:
       {' '}
       <FilterLink
         filter='SHOW_ALL'
-        currentFilter = {visibilityFilter}
-        onClick={onFilterClick}>All</FilterLink>
+        store={store}>All</FilterLink>
       {' '}
       <FilterLink
         filter='SHOW_ACTIVE'
-        currentFilter = {visibilityFilter}
-        onClick={onFilterClick}>Active</FilterLink>
+        store={store}>Active</FilterLink>
       {' '}
       <FilterLink
         filter='SHOW_COMPLETED'
-        currentFilter = {visibilityFilter}
-        onClick={onFilterClick}>Completed</FilterLink>
+        store={store}>Completed</FilterLink>
     </p>
   )
 }

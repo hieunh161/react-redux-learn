@@ -1,51 +1,14 @@
 import React,{ Component }  from 'react'
 import * as types from '../constants/ActionTypes'
-import TodoList from './TodoList'
-import AddTodo from './AddTodo'
+import AddTodo from '../containers/AddTodo'
 import Footer from './Footer'
+import VisibleTodoList from '../containers/VisibleTodoList'
 
-const getVisibileTodos = (todos, filter) => {
-  switch (filter) {
-    case 'SHOW_ALL':
-      return todos;
-    case 'SHOW_ACTIVE':
-      return todos.filter(
-        t => !t.completed
-      )
-    case 'SHOW_COMPLETED':
-      return todos.filter(
-        t => t.completed
-      )
-    default:
-      return todos;
-  }
-}
-
-let nextTodoId = 0;
-const App = ({todos, visibilityFilter, store}) => (
+const App = ({store}) => (
       <div>
-        <AddTodo onAddClick={(text) => {
-          store.dispatch({
-            type: types.ADD_TODO,
-            id: nextTodoId++,
-            text: text
-          });
-        }}/>
-        <TodoList todos={getVisibileTodos(
-          todos,
-          visibilityFilter
-        )} onTodoClick={
-          (id) => store.dispatch({
-            type: types.TOGGLE_TODO,
-            id
-          })
-        }/>
-        <Footer visibilityFilter onFilterClick={(filter) =>
-          store.dispatch({
-            type: types.SET_VISIBILITY_FILTER,
-            filter
-          })
-        }/>
+        <AddTodo store={store}/>
+        <VisibleTodoList store={store}/>
+        <Footer store={store}/>
       </div>
     )
 

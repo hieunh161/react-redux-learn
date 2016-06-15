@@ -7,7 +7,7 @@ import configureStore from './store/configureStore'
 const store = configureStore();
 const appRender = () => {
   render(
-    <App store={store} {...store.getState()}/>,
+    <App store={store}/>,
     document.getElementById('root')
   )
 }
