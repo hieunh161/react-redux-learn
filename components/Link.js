@@ -1,5 +1,4 @@
 import React,{ Component }  from 'react'
-import * as types from '../constants/ActionTypes'
 
 const Link = ({ active, children, onClick}) => {
   if(active) {
