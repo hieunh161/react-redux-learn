@@ -1,32 +1,26 @@
 import React,{ Component }  from 'react'
 import * as types from '../constants/ActionTypes'
+import { connect } from 'react-redux'
 
 let nextTodoId = 0;
-export default class AddTodo extends Component {
-  componentDidMount() {
-    this.unsubscribe = this.props.store.subscribe(() => this.forceUpdate());
-  }
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-  render() {
-    const props = this.props;
-    const state = props.store.getState();
-    let textinput;
+
+let AddTodo = ({dispatch}) => {
+    let input;
     return (
       <div>
         <input ref={ text => {
-          textinput = text
+          input = text
         }}/>
         <button onClick={()=>{
-            props.store.dispatch({
+            dispatch({
               type: types.ADD_TODO,
               id: nextTodoId++,
-              text: textinput.value
+              text: input.value
             });
-          textinput.value = '';
+          input.value = '';
         }}>Add Todo</button>
       </div>
     )
-  }
 }
+AddTodo = connect()(AddTodo)
+export default AddTodo

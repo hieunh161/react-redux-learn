@@ -1,6 +1,7 @@
 import React,{ Component }  from 'react'
 import * as types from '../constants/ActionTypes'
 import TodoList from '../components/TodoList'
+import { connect } from 'react-redux'
 
 const getVisibileTodos = (todos, filter) => {
   switch (filter) {
@@ -18,32 +19,27 @@ const getVisibileTodos = (todos, filter) => {
       return todos;
   }
 }
-class VisibleTodoList extends Component {
-  componentDidMount() {
-    this.unsubscribe = this.props.store.subscribe(() => this.forceUpdate());
-  }
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-  render() {
-    const props = this.props;
-    const state = props.store.getState();
-    return (
-      <TodoList
-      todos={
-        getVisibileTodos(
-          state.todos,
-          state.visibilityFilter
-        )
-        }
-        onTodoClick={
-          (id) => props.store.dispatch({
-            type: types.TOGGLE_TODO,
-            id
-          })
-        }></TodoList>
+
+const mapStateToProps = (state) => {
+  return {
+    todos: getVisibileTodos(
+      state.todos,
+      state.visibilityFilter
     )
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onTodoClick: (id) => {dispatch({
+      type: types.TOGGLE_TODO,
+      id
+    })}
+  }
+}
+
+const VisibleTodoList = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoList)
 export default VisibleTodoList
