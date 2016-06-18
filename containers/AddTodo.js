@@ -1,5 +1,4 @@
 import React,{ Component }  from 'react'
-import * as types from '../constants/ActionTypes'
 import { connect } from 'react-redux'
 import {addTodo} from '../actions'
 

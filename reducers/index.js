@@ -6,5 +6,6 @@ const rootReducer = combineReducers({
 })
 export default rootReducer
 
+// this transfer state to state.todos
 export const getVisibileTodos = (state, filter) =>
   fromTodos.getVisibileTodos(state.todos, filter)
